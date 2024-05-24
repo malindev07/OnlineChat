@@ -1,0 +1,29 @@
+{
+    "users": [
+        {
+            "login": "Lid",
+            "password": "1777723",
+            "id": 1
+        },
+        {
+            "login": "Vladimir",
+            "password": "1777723",
+            "id": 2
+        },
+        {
+            "login": "Vlair",
+            "password": "1777723",
+            "id": 3
+        },
+        {
+            "login": "Ld",
+            "password": "1777723",
+            "id": 4
+        },
+        {
+            "login": "Vair",
+            "password": "1777723",
+            "id": 5
+        }
+    ]
+}

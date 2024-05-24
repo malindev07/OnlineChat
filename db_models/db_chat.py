@@ -1,34 +1,36 @@
 import datetime
-from typing import List
 
-from sqlalchemy import ForeignKey, func, text, JSON
-from sqlalchemy.orm import Mapped, mapped_column, DeclarativeBase
+from sqlalchemy import ForeignKey, text, create_engine, DateTime, TIMESTAMP
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from db_models import Base
+from db_models.db_base import Base
 from db_models.db_users import User
 
 
 class Message(Base):
     __tablename__ = "message"
     
-    user: Mapped[User]
+    user: Mapped[str]
     message: Mapped[str]
     created_at: Mapped[datetime.datetime] = mapped_column(server_default = text("TIMEZONE('utc', now())"))
-    messages_id: Mapped[int] = mapped_column(ForeignKey("messages.id"))
+    messages_id: Mapped[int] = mapped_column(ForeignKey("messages.id"), nullable = True)
 
 
 #
 class Messages(Base):
     __tablename__ = "messages"
     
-    id: Mapped[int] = mapped_column(primary_key = True)
-    messages: Mapped[List["Message"]]
+    messages: Mapped[list["Message"]] = relationship(back_populates = 'message', cascade = "all, delete", )
     chat_id: Mapped[int] = mapped_column(ForeignKey("chats.id"))
 
 
 class Chat(Base):
     __tablename__ = "chats"
     
-    id: Mapped[int] = mapped_column(primary_key = True)
-    users: Mapped[List["User"]]
+    users: Mapped[list["User"]] = mapped_column(ForeignKey("user.id"))
     messages_id: Mapped[int] = mapped_column(ForeignKey("messages.id"))
+
+
+engine = create_engine("postgresql+psycopg2://postgres:postgres@127.0.0.1:5432/OnlineChat", echo = True)
+
+Base.metadata.create_all(engine)

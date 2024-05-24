@@ -1,5 +1,14 @@
-from sqlalchemy.orm import DeclarativeBase
+# import asyncio
+#
+# from sqlalchemy import MetaData
+# from sqlalchemy.ext.asyncio import AsyncAttrs
+# from sqlalchemy.orm import DeclarativeBase
+#
+# from db_models import *
+# from db_models.db_connect import db_connect
+#
+#
 
-
-class Base(DeclarativeBase):
-    pass
+#
+#
+# asyncio.run(db_connect("asyncpg", "postgres", "postgres"))
