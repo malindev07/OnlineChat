@@ -1,17 +1,17 @@
 import datetime
 from typing import List
 
-from db_models.db_users import User
+from py_models.user_model import User
 
 
 class Message:
-    user: str
-    user_id: int
+    user: User
     created_at: datetime.datetime
-    msg: str
+    msg_text: str
 
 
 class Chat:
     id: int
     users: List[User]
     messages: List[Message]
+    messages_text: List[str]
