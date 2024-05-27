@@ -27,25 +27,25 @@ def registration(login: str, password: str) -> User:
         if user.login.find(' ') != False and user.password.find(' ') != False:
             file_path = Path.cwd().parent.joinpath('db_users.json')
             
-            with open(file_path, 'r') as read_file:
+            # with open(file_path, 'r') as read_file:
+            
+            obj = json.loads(file_path.read_text('utf-8'))
+            # file_path.write_text()
+            a = filter(lambda person: person['login'] == user.login, obj['users'])
+            
+            is_registered = check_user(user)
+            if not is_registered:
+                print('Successful registration')
                 
-                obj = json.load(read_file)
-                
-                a = filter(lambda person: person['login'] == user.login, obj['users'])
-                
-                is_registered = check_user(user)
-                if not is_registered:
-                    print('Successful registration')
+                with open(file_path, 'w') as outfile:
+                    obj['users'].append(user.__dict__)
+                    user.id = len(obj['users'])
+                    json.dump(obj, outfile, indent = 4)
+                    user.hello_user()
                     
-                    with open(file_path, 'w') as outfile:
-                        obj['users'].append(user.__dict__)
-                        user.id = len(obj['users'])
-                        json.dump(obj, outfile, indent = 4)
-                        user.hello_user()
-                        
-                        return user
-                else:
-                    print('You are already registered')
+                    return user
+            else:
+                print('You are already registered')
     
     else:
         print('error login or password')

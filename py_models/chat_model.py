@@ -1,17 +1,26 @@
-import datetime
-from typing import List
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import List, Mapping, MutableMapping, Sequence, MutableSequence
+from _collections_abc import Sequence
+from py_models.user_model import User, UserLogin
 
-from py_models.user_model import User
+
+@dataclass(frozen = True, slots = True)
+class ChatID:
+    value: int
 
 
+@dataclass(frozen = True, slots = True)
 class Message:
-    user: User
-    created_at: datetime.datetime
+    user: UserLogin
     msg_text: str
+    created_at: datetime = field(default_factory = datetime.now)
 
 
-class Chat:
-    id: int
-    users: List[User]
-    messages: List[Message]
-    messages_text: List[str]
+@dataclass(frozen = True, slots = True)
+class Chat:a
+    id: ChatID
+    users: List[UserLogin] = field(default_factory = list)
+    messages: MutableSequence[Message] = field(default_factory = list)
+    
+    # сделать методы
