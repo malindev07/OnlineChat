@@ -1,10 +1,5 @@
-import dataclasses
-from dataclasses import dataclass
-
-
-@dataclass(frozen = True, slots = True)
-class UserID:
-    value: int
+from dataclasses import dataclass, field
+from itertools import count
 
 
 @dataclass(frozen = True, slots = True)
@@ -13,17 +8,17 @@ class UserLogin:
 
 
 @dataclass(frozen = True, slots = True)
+class UserID:
+    value: int = 0
+
+
+@dataclass(frozen = False, slots = True)
 class User:
-    id: UserID
     login: UserLogin
     password: str
+    id: UserID = field(default_factory = count(1).__next__)
     
     def hello_user(self):
         print(f'Hello, {self.login}')
     
     # методы прописать
-
-
-user_id = User(UserID(2), UserLogin('str'), 'pass')
-
-print(user_id.id)
