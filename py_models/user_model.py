@@ -1,24 +1,24 @@
 from dataclasses import dataclass, field
 from itertools import count
+from typing import Optional
+
+from py_models.chat_model import ChatID
 
 
-@dataclass(frozen = True, slots = True)
+@dataclass
 class UserLogin:
     value: str
 
 
-@dataclass(frozen = True, slots = True)
+@dataclass
 class UserID:
-    value: int = 0
+    value: int
 
 
-@dataclass(frozen = False, slots = True)
+@dataclass
 class User:
     login: UserLogin
     password: str
     id: UserID = field(default_factory = count(1).__next__)
-    
-    def hello_user(self):
-        print(f'Hello, {self.login}')
-    
-    # методы прописать
+    status: Optional[str] = None
+    chats_id: Optional[list[ChatID]] = None

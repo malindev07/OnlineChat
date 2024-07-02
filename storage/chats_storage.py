@@ -1,18 +1,32 @@
 from dataclasses import dataclass, field
-
 from py_models.chat_model import ChatID, Chat
+from pydantic_models.pydantic_user_model import UserSearchPydantic
+from py_models.user_model import User
+from storage.users_storage import UsersStorage
+
+
+def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage) -> (bool, list[User]):
+    i = 0
+    checked_users: list[User] = []
+    for user in users:
+        for val in users_storage.users:
+            for k in val:
+                if user.login == k:
+                    checked_users.append(val)
+                    i += 1
+    if i == len(users):
+        return True, checked_users
 
 
 @dataclass
 class ChatsStorage:
     chats: [dict[ChatID, Chat]] = field(default_factory = list)
     
-    def add_chat(self, new_chat: Chat) -> [dict[ChatID, Chat]]:
-        self.chats.append({new_chat.id: new_chat})
-    
-    def search_chat(self, chat_id: ChatID) -> Chat | None:
-        for current_chat in self.chats:
-            for current_id in current_chat:
-                if current_id == chat_id:
-                    return current_chat
-        return None
+    def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat:
+        print(check_users_in_storage(users, users_storage))
+        if check_users_in_storage(users, users_storage)[0]:
+            new_chat = Chat()
+            for user in check_users_in_storage(users, users_storage)[1]:
+                new_chat.users.append(user)
+            self.chats.append({new_chat.id: new_chat})
+            return new_chat
