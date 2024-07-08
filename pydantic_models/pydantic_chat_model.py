@@ -6,6 +6,6 @@ from py_models.chat_model import ChatID
 
 
 class ChatPydantic(BaseModel):
-    id: ChatID = Field(default_factory = count(1).__next__)
+    id: ChatID
     users: list
     messages: list

@@ -10,4 +10,5 @@ class ChatID:
 @dataclass
 class Chat:
     id: ChatID = field(default_factory = count(1).__next__)
-    users: [] = field(default_factory = list)
+    users: list = field(default_factory = list)
+    messages: list = field(default_factory = list)

@@ -1,7 +1,5 @@
 from fastapi import APIRouter, Request
-
-from pydantic_models.pydantic_chat_model import ChatPydantic
-from pydantic_models.pydantic_user_model import UserPydantic, UserSearchPydantic
+from pydantic_models.pydantic_user_model import UserSearchPydantic
 
 chat_router = APIRouter(prefix = "/chats", tags = ["Chats"])
 
