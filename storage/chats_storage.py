@@ -6,7 +6,7 @@ from py_models.user_model import User
 from storage.users_storage import UsersStorage
 
 
-def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage) -> (bool, list[User]):
+async def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage) -> (bool, list[User]):
     i = 0
     checked_users: list[User] = []
     for user in users:
@@ -21,7 +21,7 @@ def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStor
         return [False, checked_users]
 
 
-def check_chat_in_user(users: list[User]) -> bool | int:
+async def check_chat_in_user(users: list[User]) -> bool | int:
     check_list = []
     for user in users:
         for k in user:
@@ -47,20 +47,19 @@ def check_chat_in_user(users: list[User]) -> bool | int:
 class ChatsStorage:
     chats: list[dict[ChatID, Chat]] = field(default_factory = list)
     
-    def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None:
+    async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None:
         
-        res = check_users_in_storage(users, users_storage)
-        # print(res)
+        res = await check_users_in_storage(users, users_storage)
         
         if res[0]:
-            if check_chat_in_user(res[1]):
+            if await check_chat_in_user(res[1]):
                 for i in self.chats:
                     for k in i:
-                        if k == check_chat_in_user(res[1]):
+                        if k == await check_chat_in_user(res[1]):
                             for chat in self.chats:
                                 for chat_id in chat:
                                     if chat_id == k:
-                                        return chat
+                                        return chat[chat_id]
                 
                 print('Уже в чате')
             else:

@@ -8,9 +8,9 @@ from pydantic_models.pydantic_user_model import UserPydantic
 class UsersStorage:
     users: [dict[UserLogin, User]] = field(default_factory = list)
     
-    def add_user(self, new_user_pyd: UserPydantic) -> User:
+    async def add_user(self, new_user_pyd: UserPydantic) -> User:
         
-        searched_user = self.search_user(new_user_pyd.login)
+        searched_user = await self.search_user(new_user_pyd.login)
         
         if searched_user is None:
             
@@ -24,7 +24,7 @@ class UsersStorage:
             print(searched_user)
             return searched_user
     
-    def search_user(self, user: UserLogin) -> User | None:
+    async def search_user(self, user: UserLogin) -> User | None:
         for current_user in self.users:
             for k in current_user:
                 if k == user:
@@ -34,8 +34,8 @@ class UsersStorage:
         
         return None
     
-    def authorization(self, user: UserPydantic) -> User | None:
-        searched_user = self.search_user(user.login)
+    async def authorization(self, user: UserPydantic) -> User | None:
+        searched_user = await self.search_user(user.login)
         
         if searched_user is not None:
             if searched_user.password == user.password:
@@ -47,5 +47,13 @@ class UsersStorage:
             print('Пользователь не найден')
             return None
     
-    def show_all_users(self) -> [dict[UserLogin, User]]:
+    async def show_all_users(self) -> [dict[UserLogin, User]]:
         return self.users
+    
+    async def delete_user(self, user_login: UserLogin):
+        for user in self.users:
+            for key in user:
+                if key == user_login:
+                    user[key].status = 'deleted'
+                    self.users.remove(user)
+                    return user

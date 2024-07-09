@@ -12,7 +12,7 @@ class UserPydantic(BaseModel):
     password: str = Field(exclude = True)
     status: SkipJsonSchema[str] = None
     
-    def convert_to_ReturnModel(self, user: User):
+    async def convert_to_ReturnModel(self, user: User):
         if user is not None:
             self.login = user.login
             self.password = user.password
@@ -25,7 +25,7 @@ class UserPydantic(BaseModel):
 class UserSearchPydantic(UserPydantic):
     password: SkipJsonSchema[str] = None
     
-    def convert_to_search_model(self, user: User):
+    async def convert_to_search_model(self, user: User):
         if user is not None:
             self.login = user.login
             self.id = user.id
