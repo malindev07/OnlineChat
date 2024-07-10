@@ -22,3 +22,4 @@ class User:
     id: UserID = field(default_factory = count(1).__next__)
     status: Optional[str] = None
     chats_id: Optional[list[ChatID]] = None
+    old_logins: Optional[list[UserLogin]] = None

@@ -25,6 +25,14 @@ async def user_search_handler(req: Request, user: UserSearchPydantic) -> UserSea
     return await user.convert_to_search_model(await req.state.storage.users_storage.search_user(user.login))
 
 
-@user_router.delete('/delete_search')
+@user_router.delete('/delete_user')
 async def user_search_handler(req: Request, user: UserSearchPydantic):
     return await req.state.storage.users_storage.delete_user(user.login)
+
+
+@user_router.post('/change_user_login')
+async def user_change_login(req: Request, old_login: UserSearchPydantic,
+                            new_login: UserSearchPydantic) -> UserSearchPydantic:
+    return await new_login.convert_to_search_model(
+        await req.state.storage.users_storage.change_user_login(old_login = old_login.login,
+                                                                new_login = new_login.login))

@@ -57,3 +57,24 @@ class UsersStorage:
                     user[key].status = 'deleted'
                     self.users.remove(user)
                     return user
+    
+    async def change_user_login(self, old_login: UserLogin, new_login: UserLogin) -> User | None:
+        search_user = await self.search_user(old_login)
+        
+        if search_user is not None:
+            search_user.login = new_login
+            for user in self.users:
+                for key in user:
+                    if key == old_login:
+                        if search_user.old_logins is None:
+                            search_user.old_logins = [old_login]
+                        else:
+                            search_user.old_logins.append(old_login)
+                        
+                        self.users.remove(user)
+                        self.users.append({search_user.login: search_user})
+                        
+                        return search_user
+        else:
+            print('No')
+            return None
