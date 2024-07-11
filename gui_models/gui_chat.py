@@ -1,23 +1,21 @@
-import PySimpleGUI as sg
+from tkinter import *
+from tkinter import ttk
 
-# All the stuff inside your window.
-layout = [[sg.Text('Chat with user')],
-          [sg.Text()],
-          [sg.InputText()],
-          [sg.Button('Close chat')]]
+root = Tk()
+root.title("METANIT.COM")
+root.geometry("250x150")
 
-# Create the Window
-window = sg.Window('Hello Example', layout)
+message = StringVar()
 
-# Event Loop to process "events" and get the "values" of the inputs
-while True:
-    event, values = window.read()
-    
-    # if user closes window or clicks cancel
-    if event == sg.WIN_CLOSED or event == 'Cancel':
-        break
-    
-    print('Hello', values[0], '!')
-    # print('Hello', values[1], '!')
+label = ttk.Label(textvariable = message)
+label.pack(anchor = NW, padx = 6, pady = 6)
 
-window.close()
+entry = ttk.Entry(textvariable = message)
+entry.pack(anchor = NW, padx = 6, pady = 6)
+
+button = ttk.Button(textvariable = message)
+button.pack(side = LEFT, anchor = N, padx = 6, pady = 6)
+
+root.mainloop()
+
+##rest

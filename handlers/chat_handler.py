@@ -15,4 +15,4 @@ async def chat_creation(req: Request, users: list[UserSearchPydantic]) -> ChatPy
 
 @chat_router.get('/show_chats')
 async def chat_creation(req: Request):
-    res = req.state.storage.chats_storage.chats
+    return req.state.storage.chats_storage.chats

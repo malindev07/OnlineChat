@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from py_models.message_model import MessageUserLogin, MessageText, Message, MessageChatId, MessageForStorage, \
+from py_models.message_model import MessageUserLogin, Message, MessageChatId, MessageForStorage, \
     MessageForChatStorage
 from storage.chats_storage import ChatsStorage
 

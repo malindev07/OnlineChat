@@ -21,26 +21,36 @@ async def check_users_in_storage(users: [UserSearchPydantic], users_storage: Use
         return [False, checked_users]
 
 
-async def check_chat_in_user(users: list[User]) -> bool | int:
+async def check_chat_in_user(users: list[User]) -> int | bool | None:
     check_list = []
+    tuples = set()
     for user in users:
+        
         for k in user:
+            tuples.add(k)
+            
             if user[k].chats_id is not None:
                 for i in user[k].chats_id:
                     check_list.append(i)
             else:
                 user[k].chats_id = []
-    
-    count = 0
-    for i in check_list:
-        for k in check_list:
-            if i == k:
-                count += 1
-        if count == len(users):
-            return i
-        else:
-            count = 0
-    return False
+    print(len(tuples))
+    print(len(tuples) == 1)
+    if len(tuples) == 1:
+        return None
+    else:
+        count = 0
+        for i in check_list:
+            for k in check_list:
+                if i == k:
+                    count += 1
+            if count == len(users):
+                return i
+            else:
+                count = 0
+        if count == 0:
+            return False
+    # return False
 
 
 @dataclass
@@ -50,18 +60,21 @@ class ChatsStorage:
     async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None:
         
         res = await check_users_in_storage(users, users_storage)
-        
+        check_res = await check_chat_in_user(res[1])
         if res[0]:
-            if await check_chat_in_user(res[1]):
+            if check_res:
                 for i in self.chats:
                     for k in i:
-                        if k == await check_chat_in_user(res[1]):
+                        if k == check_res:
                             for chat in self.chats:
                                 for chat_id in chat:
                                     if chat_id == k:
+                                        print('Уже в чате')
                                         return chat[chat_id]
-                
-                print('Уже в чате')
+            elif check_res is None:
+                print('Нельзя создать чат')
+                return None
+            
             else:
                 new_chat = Chat()
                 for user in res[1]:
