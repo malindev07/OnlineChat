@@ -1,4 +1,8 @@
 from dataclasses import dataclass, field
+
+from fastapi import WebSocket
+from websocket import create_connection
+
 from py_models.chat_model import ChatID, Chat
 
 from pydantic_models.pydantic_user_model import UserSearchPydantic
@@ -50,14 +54,13 @@ async def check_chat_in_user(users: list[User]) -> int | bool | None:
                 count = 0
         if count == 0:
             return False
-    # return False
 
 
 @dataclass
 class ChatsStorage:
     chats: list[dict[ChatID, Chat]] = field(default_factory = list)
     
-    async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None:
+    async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None | int:
         
         res = await check_users_in_storage(users, users_storage)
         check_res = await check_chat_in_user(res[1])
@@ -70,7 +73,7 @@ class ChatsStorage:
                                 for chat_id in chat:
                                     if chat_id == k:
                                         print('Уже в чате')
-                                        return chat[chat_id]
+                                        return chat_id
             elif check_res is None:
                 print('Нельзя создать чат')
                 return None
@@ -83,6 +86,12 @@ class ChatsStorage:
                     
                     new_chat.users.append(user)
                 self.chats.append({new_chat.id: new_chat})
+                
                 return new_chat
         else:
             return None
+    
+    def show_chat_msg(self, search_chat_id: int) -> list:
+        for chat in self.chats:
+            if search_chat_id in chat:
+                return chat[search_chat_id].messages

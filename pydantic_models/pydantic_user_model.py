@@ -11,6 +11,7 @@ class UserPydantic(BaseModel):
     login: str
     password: str = Field(exclude = True)
     status: SkipJsonSchema[str] = None
+    chats_id: SkipJsonSchema[list[str]] = None
     old_logins: SkipJsonSchema[list[str]] = None
     
     async def convert_to_ReturnModel(self, user: User):
@@ -19,6 +20,7 @@ class UserPydantic(BaseModel):
             self.password = user.password
             self.id = user.id
             self.status = user.status
+            self.chats_id = user.chats_id
             self.old_logins = user.old_logins
         
         return self

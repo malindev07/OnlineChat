@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Response
+from starlette import status
 
 from pydantic_models.pydantic_user_model import UserPydantic, UserSearchPydantic
 
@@ -6,8 +7,18 @@ user_router = APIRouter(prefix = "/users", tags = ["Users"])
 
 
 @user_router.post('/user_registration')
-async def user_registration_handler(req: Request, user: UserPydantic) -> UserPydantic:
-    return await user.convert_to_ReturnModel(await req.state.storage.users_storage.add_user(user))
+async def user_registration_handler(req: Request, response: Response, user: UserPydantic) -> UserPydantic | int:
+    res = await req.state.storage.users_storage.add_user(user)
+    
+    if res is None:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return response.status_code
+    
+    elif not res:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return response.status_code
+    else:
+        return await user.convert_to_ReturnModel(res)
 
 
 @user_router.get('/users_get')
@@ -16,8 +27,12 @@ async def get_users_handler(req: Request):
 
 
 @user_router.post('/user_authorization')
-async def user_authorization_handler(req: Request, user: UserPydantic) -> UserPydantic:
-    return await user.convert_to_ReturnModel(await req.state.storage.users_storage.authorization(user))
+async def user_authorization_handler(req: Request, response: Response, user: UserPydantic) -> UserPydantic | int:
+    if await req.state.storage.users_storage.authorization(user) is not None:
+        return await user.convert_to_ReturnModel(await req.state.storage.users_storage.authorization(user))
+    else:
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return response.status_code
 
 
 @user_router.post('/user_search')

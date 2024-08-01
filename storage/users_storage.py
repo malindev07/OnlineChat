@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-
+from fastapi import Response
 from py_models.user_model import UserLogin, User
 from pydantic_models.pydantic_user_model import UserPydantic
 
@@ -8,31 +8,36 @@ from pydantic_models.pydantic_user_model import UserPydantic
 class UsersStorage:
     users: [dict[UserLogin, User]] = field(default_factory = list)
     
-    async def add_user(self, new_user_pyd: UserPydantic) -> User:
+    async def add_user(self, new_user_pyd: UserPydantic) -> User | None | bool:
         
         searched_user = await self.search_user(new_user_pyd.login)
         
         if searched_user is None:
-            
             new_user = User(login = new_user_pyd.login, password = new_user_pyd.password)
             new_user.status = 'registered'
             self.users.append({new_user.login: new_user})
             print(new_user)
             return new_user
         
+        elif not searched_user:
+            print('Недопустимый логин')
+            return False
+        
         else:
-            print(searched_user)
-            return searched_user
+            print(f'Такой пользователь уже зарегестрирован')
+            return None
     
-    async def search_user(self, user: UserLogin) -> User | None:
+    async def search_user(self, user: UserLogin) -> User | None | bool:
         for current_user in self.users:
             for k in current_user:
                 if k == user:
                     searched_user = current_user[user]
                     print(searched_user)
                     return searched_user
-        
-        return None
+        if user != '':
+            return None
+        else:
+            return False
     
     async def authorization(self, user: UserPydantic) -> User | None:
         searched_user = await self.search_user(user.login)
