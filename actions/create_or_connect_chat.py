@@ -5,7 +5,7 @@ def create_chat(data: list[dict]):
     response_post = requests.post('http://127.0.0.1:8000/chats/chat_creation', json = data)
     
     data = response_post.json()
-    print(data)
+    
     return data
 
 

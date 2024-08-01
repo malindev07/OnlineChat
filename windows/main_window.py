@@ -1,7 +1,7 @@
-import tkinter as tk
+from tkinter import N
 
-from tkinter import ttk, N
-
+from mttkinter import mtTkinter as tk
+from tkinter import ttk
 from windows.auth_reg_window import AuthWindow, RegWindow
 
 
@@ -29,9 +29,9 @@ class App(tk.Tk):
         auth_btn.grid(row = 1, column = 1, ipadx = 70, ipady = 6, padx = 5)
     
     def reg_open(self):
-        self.destroy()
-        _ = RegWindow()
+        # self.withdraw()
+        _ = RegWindow(parent_window = self)
     
     def auth_open(self):
-        self.destroy()
-        _ = AuthWindow()
+        # self.withdraw()
+        _ = AuthWindow(parent_window = self)
