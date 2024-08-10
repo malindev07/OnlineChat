@@ -3,26 +3,30 @@ from dataclasses import dataclass, field
 from fastapi import WebSocket
 from websocket import create_connection
 
+from db_models.actions_user_db import search_user_db
 from py_models.chat_model import ChatID, Chat
 
-from pydantic_models.pydantic_user_model import UserSearchPydantic
+from pydantic_models.pydantic_user_model import UserSearchPydantic, UserSearchPydanticDb
 from py_models.user_model import User
 from storage.users_storage import UsersStorage
 
 
-async def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage) -> (bool, list[User]):
-    i = 0
-    checked_users: list[User] = []
+async def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage = None) -> (bool, list[User]):
     for user in users:
-        for val in users_storage.users:
-            for k in val:
-                if user.login == k:
-                    checked_users.append(val)
-                    i += 1
-    if i == len(users):
-        return [True, checked_users]
-    else:
-        return [False, checked_users]
+        res = await search_user_db(user)
+        print(res)
+    # i = 0
+    # checked_users: list[User] = []
+    # for user in users:
+    #     for val in users_storage.users:
+    #         for k in val:
+    #             if user.login == k:
+    #                 checked_users.append(val)
+    #                 i += 1
+    # if i == len(users):
+    #     return [True, checked_users]
+    # else:
+    #     return [False, checked_users]
 
 
 async def check_chat_in_user(users: list[User]) -> int | bool | None:
@@ -59,6 +63,17 @@ async def check_chat_in_user(users: list[User]) -> int | bool | None:
 @dataclass
 class ChatsStorage:
     chats: list[dict[ChatID, Chat]] = field(default_factory = list)
+    
+    @staticmethod
+    async def check_users_in_storage(users: [UserSearchPydanticDb]):
+        bool_res = set()
+        for user in users:
+            res = await search_user_db(user.user_login)
+            bool_res.add(res)
+        if len(bool_res) > 1:
+            return None
+        else:
+            return True
     
     async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None | int:
         

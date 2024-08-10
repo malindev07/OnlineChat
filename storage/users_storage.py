@@ -1,59 +1,76 @@
-from dataclasses import dataclass, field
-from fastapi import Response
+from db_models.actions_user_db import insert_user, show_all_users_from_db, search_user_db, authorization_db
 from py_models.user_model import UserLogin, User
 from pydantic_models.pydantic_user_model import UserPydantic
 
 
-@dataclass
 class UsersStorage:
-    users: [dict[UserLogin, User]] = field(default_factory = list)
     
-    async def add_user(self, new_user_pyd: UserPydantic) -> User | None | bool:
-        
-        searched_user = await self.search_user(new_user_pyd.login)
-        
-        if searched_user is None:
+    @staticmethod
+    async def create_user(new_user_pyd: UserPydantic) -> User | None | bool:
+        if new_user_pyd.login == '':
+            return False
+        else:
             new_user = User(login = new_user_pyd.login, password = new_user_pyd.password)
-            new_user.status = 'registered'
-            self.users.append({new_user.login: new_user})
-            print(new_user)
-            return new_user
-        
-        elif not searched_user:
-            print('Недопустимый логин')
-            return False
-        
-        else:
-            print(f'Такой пользователь уже зарегестрирован')
-            return None
-    
-    async def search_user(self, user: UserLogin) -> User | None | bool:
-        for current_user in self.users:
-            for k in current_user:
-                if k == user:
-                    searched_user = current_user[user]
-                    print(searched_user)
-                    return searched_user
-        if user != '':
-            return None
-        else:
-            return False
-    
-    async def authorization(self, user: UserPydantic) -> User | None:
-        searched_user = await self.search_user(user.login)
-        
-        if searched_user is not None:
-            if searched_user.password == user.password:
-                return searched_user
+            res = await insert_user(new_user)
+            
+            if res is not None:
+                return new_user
             else:
-                print(f'Для пользователя с логином {user.login} введен неверный пароль')
-                return None
-        else:
-            print('Пользователь не найден')
-            return None
+                return res
+        # searched_user = await self.search_user(new_user_pyd.login)
+        # if searched_user is None:
+        #     new_user = User(login = new_user_pyd.login, password = new_user_pyd.password)
+        #     new_user.status = 'registered'
+        #     self.users.append({new_user.login: new_user})
+        #     print(new_user)
+        #     return new_user
+        #
+        # elif not searched_user:
+        #     print('Недопустимый логин')
+        #     return False
+        #
+        # else:
+        #     print(f'Такой пользователь уже зарегестрирован')
+        #     return None
     
-    async def show_all_users(self) -> [dict[UserLogin, User]]:
-        return self.users
+    # users: [dict[UserLogin, User]] = field(default_factory = list)
+    # async def search_user(self, user: UserLogin) -> User | None | bool:
+    #     for current_user in self.users:
+    #         for k in current_user:
+    #             if k == user:
+    #                 searched_user = current_user[user]
+    #                 print(searched_user)
+    #                 return searched_user
+    #     if user != '':
+    #         return None
+    #     else:
+    #         return False
+    @staticmethod
+    async def show_all_users() -> [dict[UserLogin, User]]:
+        res = await show_all_users_from_db()
+        # print(res)
+        return res
+    
+    @staticmethod
+    async def user_authorization(user: UserPydantic):
+        user_auth = User(login = user.login, password = user.password)
+        res = await authorization_db(user_auth)
+        return res
+        
+        # if searched_user is not None:
+        #     if searched_user.password == user.password:
+        #         return searched_user
+        #     else:
+        #         print(f'Для пользователя с логином {user.login} введен неверный пароль')
+        #         return None
+        # else:
+        #     print('Пользователь не найден')
+        #     return None
+    
+    @staticmethod
+    async def search_user(user: UserLogin):
+        res = await search_user_db(user)
+        return res
     
     async def delete_user(self, user_login: UserLogin):
         for user in self.users:

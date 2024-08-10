@@ -14,7 +14,7 @@ class UserPydantic(BaseModel):
     chats_id: SkipJsonSchema[list[str]] = None
     old_logins: SkipJsonSchema[list[str]] = None
     
-    async def convert_to_ReturnModel(self, user: User):
+    async def convert_to_return_model(self, user: User):
         if user is not None:
             self.login = user.login
             self.password = user.password
@@ -36,3 +36,7 @@ class UserSearchPydantic(UserPydantic):
             self.status = user.status
             self.old_logins = user.old_logins
         return self
+
+
+class UserSearchPydanticDb(BaseModel):
+    user_login: str

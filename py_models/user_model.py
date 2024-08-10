@@ -19,7 +19,7 @@ class UserID:
 class User:
     login: UserLogin
     password: str
-    id: UserID = field(default_factory = count(1).__next__)
+    id: UserID = field(default = 0)
     status: Optional[str] = None
     chats_id: Optional[list[ChatID]] = None
     old_logins: Optional[list[UserLogin]] = None

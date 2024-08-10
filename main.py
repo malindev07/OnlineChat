@@ -29,7 +29,6 @@ app = FastAPI(lifespan = lifespan)
 app.include_router(user_router)
 app.include_router(chat_router)
 app.include_router(message_router)
-# app.include_router(ws_router)
 
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
