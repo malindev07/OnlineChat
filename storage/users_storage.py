@@ -10,7 +10,7 @@ class UsersStorage:
         if new_user_pyd.login == '':
             return False
         else:
-            new_user = User(login = new_user_pyd.login, password = new_user_pyd.password)
+            new_user = User(login = new_user_pyd.login, password = new_user_pyd.password, chats_id = [])
             res = await insert_user(new_user)
             
             if res is not None:

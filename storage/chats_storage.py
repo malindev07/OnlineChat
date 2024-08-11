@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from fastapi import WebSocket
 from websocket import create_connection
 
-from db_models.actions_user_db import search_user_db
+from db_models.actions_user_db import search_user_db, check_chat_in_users_db, create_chat_db
 from py_models.chat_model import ChatID, Chat
 
 from pydantic_models.pydantic_user_model import UserSearchPydantic, UserSearchPydanticDb
@@ -11,22 +11,22 @@ from py_models.user_model import User
 from storage.users_storage import UsersStorage
 
 
-async def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage = None) -> (bool, list[User]):
-    for user in users:
-        res = await search_user_db(user)
-        print(res)
-    # i = 0
-    # checked_users: list[User] = []
-    # for user in users:
-    #     for val in users_storage.users:
-    #         for k in val:
-    #             if user.login == k:
-    #                 checked_users.append(val)
-    #                 i += 1
-    # if i == len(users):
-    #     return [True, checked_users]
-    # else:
-    #     return [False, checked_users]
+# async def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage = None) -> (bool, list[User]):
+#     for user in users:
+#         res = await search_user_db(user)
+#         print(res)
+# i = 0
+# checked_users: list[User] = []
+# for user in users:
+#     for val in users_storage.users:
+#         for k in val:
+#             if user.login == k:
+#                 checked_users.append(val)
+#                 i += 1
+# if i == len(users):
+#     return [True, checked_users]
+# else:
+#     return [False, checked_users]
 
 
 async def check_chat_in_user(users: list[User]) -> int | bool | None:
@@ -75,36 +75,57 @@ class ChatsStorage:
         else:
             return True
     
-    async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None | int:
-        
-        res = await check_users_in_storage(users, users_storage)
-        check_res = await check_chat_in_user(res[1])
-        if res[0]:
-            if check_res:
-                for i in self.chats:
-                    for k in i:
-                        if k == check_res:
-                            for chat in self.chats:
-                                for chat_id in chat:
-                                    if chat_id == k:
-                                        print('Уже в чате')
-                                        return chat_id
-            elif check_res is None:
-                print('Нельзя создать чат')
-                return None
+    @staticmethod
+    async def create_chat(users: [UserSearchPydanticDb]):
+        for user in users:
+            res = await search_user_db(user.user_login)
             
-            else:
-                new_chat = Chat()
-                for user in res[1]:
-                    for k in user:
-                        user[k].chats_id.append(new_chat.id)
-                    
-                    new_chat.users.append(user)
-                self.chats.append({new_chat.id: new_chat})
-                
-                return new_chat
-        else:
-            return None
+            if res is None:
+                print('Один из пользоватлей не найден')
+                return None
+        
+        users_logins = []
+        for user in users:
+            users_logins.append(user.user_login)
+        
+        new_chat = Chat()
+        for user in users_logins:
+            new_chat.users.append(user)
+        
+        res = await create_chat_db(new_chat)
+        print(res)
+        return res
+    
+    # async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None | int:
+    #
+    #     res = await check_users_in_storage(users, users_storage)
+    #     check_res = await check_chat_in_user(res[1])
+    #     if res[0]:
+    #         if check_res:
+    #             for i in self.chats:
+    #                 for k in i:
+    #                     if k == check_res:
+    #                         for chat in self.chats:
+    #                             for chat_id in chat:
+    #                                 if chat_id == k:
+    #                                     print('Уже в чате')
+    #                                     return chat_id
+    #         elif check_res is None:
+    #             print('Нельзя создать чат')
+    #             return None
+    #
+    #         else:
+    #             new_chat = Chat()
+    #             for user in res[1]:
+    #                 for k in user:
+    #                     user[k].chats_id.append(new_chat.id)
+    #
+    #                 new_chat.users.append(user)
+    #             self.chats.append({new_chat.id: new_chat})
+    #
+    #             return new_chat
+    #     else:
+    #         return None
     
     def show_chat_msg(self, search_chat_id: int) -> list:
         for chat in self.chats:

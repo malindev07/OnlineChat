@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from itertools import count
 from typing import Optional
 
 from py_models.chat_model import ChatID
@@ -21,5 +20,5 @@ class User:
     password: str
     id: UserID = field(default = 0)
     status: Optional[str] = None
-    chats_id: Optional[list[ChatID]] = None
+    chats_id: Optional[list[ChatID]] = list
     old_logins: Optional[list[UserLogin]] = None

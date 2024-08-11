@@ -9,13 +9,10 @@ chat_router = APIRouter(prefix = "/chats", tags = ["Chats"])
 
 
 @chat_router.post('/chat_creation')
-async def chat_creation(req: Request, users: list[UserSearchPydantic]) -> ChatPydantic | None | int:
-    res = await req.state.storage.chats_storage.create_chat(users, req.state.storage.users_storage)
+async def chat_creation(req: Request, users: list[UserSearchPydanticDb]):
+    res = await req.state.storage.chats_storage.create_chat(users)
     
-    if isinstance(res, int):
-        return res
-    else:
-        return convert_dataclass_chat_to_pyd(res)
+    return res
 
 
 @chat_router.get('/show_chats')
