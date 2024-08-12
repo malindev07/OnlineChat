@@ -1,6 +1,9 @@
+import asyncio
+
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 
 from core.config import settings
+from db_models import Base
 
 
 class DataBaseHelper:
@@ -18,3 +21,11 @@ class DataBaseHelper:
 
 
 db_helper = DataBaseHelper(db_url = settings.db_url, db_echo = True)
+
+
+async def start():
+    async with db_helper.engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+
+# asyncio.run(start())

@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Request, Response
 from starlette import status
 
-from action_handler.conv_pydantic_to_dataclass import convert_dataclass_chat_to_pyd
-from pydantic_models.pydantic_chat_model import ChatPydantic
-from pydantic_models.pydantic_user_model import UserSearchPydantic, UserSearchPydanticDb
+from pydantic_models.pydantic_user_model import UserSearchPydanticDb
 
 chat_router = APIRouter(prefix = "/chats", tags = ["Chats"])
 

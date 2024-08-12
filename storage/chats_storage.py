@@ -1,14 +1,11 @@
 from dataclasses import dataclass, field
 
-from fastapi import WebSocket
-from websocket import create_connection
-
-from db_models.actions_user_db import search_user_db, check_chat_in_users_db, create_chat_db
+from db_actions.actions_user_db import search_user_db
+from db_actions.actions_chat_db import create_chat_db, check_last_index_chat_db
 from py_models.chat_model import ChatID, Chat
 
-from pydantic_models.pydantic_user_model import UserSearchPydantic, UserSearchPydanticDb
+from pydantic_models.pydantic_user_model import UserSearchPydanticDb
 from py_models.user_model import User
-from storage.users_storage import UsersStorage
 
 
 # async def check_users_in_storage(users: [UserSearchPydantic], users_storage: UsersStorage = None) -> (bool, list[User]):
@@ -89,6 +86,8 @@ class ChatsStorage:
             users_logins.append(user.user_login)
         
         new_chat = Chat()
+        new_chat.id = await check_last_index_chat_db()
+        
         for user in users_logins:
             new_chat.users.append(user)
         

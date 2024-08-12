@@ -1,4 +1,4 @@
-from db_models.actions_user_db import insert_user, show_all_users_from_db, search_user_db, authorization_db
+from db_actions.actions_user_db import insert_user, show_all_users_from_db, search_user_db, authorization_db
 from py_models.user_model import UserLogin, User
 from pydantic_models.pydantic_user_model import UserPydantic
 

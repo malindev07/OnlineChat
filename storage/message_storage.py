@@ -20,19 +20,22 @@ class MessageStorage:
     msg_storage: dict[MessageChatId, dict[MessageUserLogin, list[MessageForStorage]]] = field(default_factory = dict)
     
     # msg_storage: list[dict[MessageUserLogin, Message]] = field(default_factory = list)
-    async def create_message(self, msg: Message) -> Message:
-        new_msg = MessageForStorage(text = msg.text.text, date = msg.date)
-        
-        if msg.chat_id.id in self.msg_storage.keys():
-            if msg.user_login.login in self.msg_storage[msg.chat_id.id]:
-                self.msg_storage[msg.chat_id.id][msg.user_login.login].append(new_msg)
-            
-            else:
-                self.msg_storage[msg.chat_id.id][msg.user_login.login] = [new_msg]
-        else:
-            self.msg_storage[msg.chat_id.id] = {msg.user_login.login: [new_msg]}
-        
-        return msg
+    # async def create_message(self, msg: Message) -> Message:
+    #     new_msg = MessageForStorage(text = msg.text.text, date = msg.date)
+    #
+    #     if msg.chat_id.id in self.msg_storage.keys():
+    #         if msg.user_login.login in self.msg_storage[msg.chat_id.id]:
+    #             self.msg_storage[msg.chat_id.id][msg.user_login.login].append(new_msg)
+    #
+    #         else:
+    #             self.msg_storage[msg.chat_id.id][msg.user_login.login] = [new_msg]
+    #     else:
+    #         self.msg_storage[msg.chat_id.id] = {msg.user_login.login: [new_msg]}
+    #
+    #     return msg
+    @staticmethod
+    async def create_message(chat_id: int, user_login: str):
+        pass
     
     async def show_msg_storage(self) -> dict[MessageChatId, dict[MessageUserLogin, list[MessageForStorage]]]:
         return self.msg_storage
