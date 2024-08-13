@@ -4,7 +4,7 @@ import datetime
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload, selectinload
 
-from db_models import Message as Message_DB, Chat as Chat_DB
+from db_models import Message as Message_DB, Chat as Chat_DB, User as User_DB
 from db_config.db_helper import db_helper
 
 
@@ -16,8 +16,16 @@ async def create_message_db(user_id: int, chat_id: int, text: str):
     new_msg.date = datetime.datetime.now()
     
     async with db_helper.session_factory() as session:
-        session.add(new_msg)
-        await session.commit()
+        async with db_helper.session_factory() as session_res:
+            stmt = select(User_DB.login).where(User_DB.user_id == user_id)
+            res = await session_res.execute(stmt)
+            res_login = res.scalars().first()
+            new_msg.user_login = res_login
+            session.add(new_msg)
+            
+            await session.commit()
+            
+            return {'user_login': res_login, 'text': text}
 
 
 async def show_chat_msgs(chat_id: int):
@@ -25,16 +33,16 @@ async def show_chat_msgs(chat_id: int):
         stmt = select(Chat_DB).options(selectinload(Chat_DB.messages)).where(Chat_DB.chat_id == chat_id)
         
         result = await session.execute(stmt)
-        chats = result.scalars()
+        chats = result.scalar()
         
-        for chat in chats:
-            print('**' * 10)
-            print(f'Chat id {chat.chat_id}, users = {chat.users}')
-            print(f'Сообщение в чате {chat.chat_id}')
-            
-            for msg in chat.messages:
-                print(f' Пользователь {msg.user_id} написал : {msg.text}')
+        # for chat in chats:
+        print('**' * 10)
+        print(f'Chat id {chats.chat_id}, users = {chats.users}')
+        print(f'Сообщение в чате {chats.chat_id}')
+        
+        for msg in chats.messages:
+            print(f' Пользователь {msg.user_login} написал : {msg.text}')
 
 
 # asyncio.run(create_message_db(user_id = 2, chat_id = 2, text = 'Good!'))
-asyncio.run(show_chat_msgs(chat_id = 2))
+asyncio.run(show_chat_msgs(chat_id = 1))

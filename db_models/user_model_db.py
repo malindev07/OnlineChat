@@ -1,10 +1,13 @@
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
 from sqlalchemy import ARRAY, String, Integer, Column
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, relationship
 from sqlalchemy.orm import mapped_column
 
 from db_models.base import Base
+
+if TYPE_CHECKING:
+    from db_models import Message
 
 
 class User(Base):

@@ -3,9 +3,9 @@ from pydantic.json_schema import SkipJsonSchema
 
 
 class MessageEntryPydantic(BaseModel):
-    msg_text: str
-    user_login: str
     chat_id: int
+    user_id: int
+    text: str
 
 
 class MessageExitPydantic(BaseModel):

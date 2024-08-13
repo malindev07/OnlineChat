@@ -1,7 +1,9 @@
 from dataclasses import dataclass, field
 
+from db_actions.actions_message_db import create_message_db, show_chat_msgs
 from py_models.message_model import MessageUserLogin, Message, MessageChatId, MessageForStorage, \
     MessageForChatStorage
+from pydantic_models.pydantic_message_model import MessageExitPydantic
 from storage.chats_storage import ChatsStorage
 
 
@@ -34,8 +36,14 @@ class MessageStorage:
     #
     #     return msg
     @staticmethod
-    async def create_message(chat_id: int, user_login: str):
-        pass
+    async def create_message(user_id: int, chat_id: int, text: str):
+        res = await create_message_db(chat_id = chat_id, user_id = user_id, text = text)
+        
+        msg_res = MessageExitPydantic(user_login = res['user_login'], msg_text = res['text'])
+        
+        return msg_res
     
-    async def show_msg_storage(self) -> dict[MessageChatId, dict[MessageUserLogin, list[MessageForStorage]]]:
-        return self.msg_storage
+    @staticmethod
+    async def show_chats_messages(chat_id: int):
+        res = show_chat_msgs(chat_id = chat_id)
+        return res
