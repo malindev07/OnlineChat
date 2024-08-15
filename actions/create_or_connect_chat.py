@@ -9,10 +9,8 @@ def create_chat(data: list[dict]):
     return data
 
 
-def connect_to_chat(id: str):
-    response_get = requests.get('http://127.0.0.1:8000/chats/show_chats')
+def connect_to_chat(chat_id: int):
+    response_get = requests.get(f'http://127.0.0.1:8000/chats/return_chat', params = {'chat_id': chat_id})
     data = response_get.json()
     
-    for item in data:
-        if id in item.keys():
-            return item
+    return data

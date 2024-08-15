@@ -11,7 +11,7 @@ def send_message_in_chat(data: dict):
     return data
 
 
-def check_msg_storage(id: str) -> int:
+def check_msg_storage(id: int) -> int:
     res = connect_to_chat(id)
     
     return len(res[id]['messages'])

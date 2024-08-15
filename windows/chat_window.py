@@ -11,12 +11,14 @@ from actions.send_message import send_message_in_chat
 
 class ChatWindow(tk.Tk):
     
-    def __init__(self, first_user_login = None, second_user_login = None, chat_id = None, parent_window = None):
+    def __init__(self, user = None, first_user_login = None, second_user_login = None, chat_id = None, parent_window = None):
         super().__init__()
         
         self.first_user_login = first_user_login
         self.second_user_login = second_user_login
         self.chat_id = chat_id
+        self.user = user
+        print(self.second_user_login)
         
         self.title('Онлайн чат')
         self.resizable(False, False)
@@ -27,7 +29,7 @@ class ChatWindow(tk.Tk):
         for c in range(3): self.columnconfigure(index = c, weight = 1)
         for r in range(8): self.rowconfigure(index = r, weight = 1)
         
-        self.chat_with_label = ttk.Label(self, text = f'Чат с {self.second_user_login}, час id {self.chat_id}', justify = CENTER)
+        self.chat_with_label = ttk.Label(self, text = f'Чат с {self.second_user_login}, чат id {self.chat_id}', justify = CENTER)
         self.chat_with_label.grid(row = 0, columnspan = 3, ipadx = 6, ipady = 6, padx = 4, pady = 4, sticky = NSEW)
         
         self.message_in_chat_text = ScrolledText(self, background = '#F5FFFA', width = 15, height = 2, state = DISABLED)
@@ -51,25 +53,32 @@ class ChatWindow(tk.Tk):
     
     def send_message(self):
         message = self.message_text_entry.get(index1 = "1.0", index2 = END)
-        data = {"msg_text": message, "user_login": self.first_user_login, "chat_id": self.chat_id}
         
+        data = {
+            "chat_id": self.chat_id,
+            "user_id": self.user["id"],
+            "text": message
+        }
         send_message_in_chat(data = data)
     
     def show_messages(self):
-        res = return_chat_msg_storage(chat_id = str(self.chat_id))
+        res = return_chat_msg_storage(chat_id = self.chat_id)
         i = 0
-        while i <= len(res) - 1:
-            self.message_in_chat_text.configure(state = NORMAL)
-            self.message_in_chat_text.insert(END, f'\n{res[i]['user_login']}: {res[i]['text']}')
-            self.message_in_chat_text.configure(state = DISABLED)
-            i += 1
+        print(res)
+        for msg in res:
+            for k in msg:
+                self.message_in_chat_text.configure(state = NORMAL)
+                self.message_in_chat_text.insert(END, f'\n{k}: {msg[k]}')
+                self.message_in_chat_text.configure(state = DISABLED)
+                self.message_in_chat_text.yview_moveto('1')
     
     def check_new_messages(self):
-        self.message_in_chat_text.configure(state = NORMAL)
-        self.message_in_chat_text.insert(END, f'\n{self.thread_manger.last_msg['user_login']} : '
-                                              f'{self.thread_manger.last_msg['text']}')
-        self.message_in_chat_text.configure(state = DISABLED)
-        self.message_in_chat_text.yview_moveto('1')
+        
+        for k in self.thread_manger.last_msg:
+            self.message_in_chat_text.configure(state = NORMAL)
+            self.message_in_chat_text.insert(END, f'\n{k} : {self.thread_manger.last_msg[k]}')
+            self.message_in_chat_text.configure(state = DISABLED)
+            self.message_in_chat_text.yview_moveto('1')
     
     def return_to_main(self):
         self.destroy()

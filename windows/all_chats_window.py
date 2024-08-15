@@ -13,11 +13,10 @@ from windows.chat_window import ChatWindow
 class ChatsWindow(tk.Tk):
     parent_window = None
     
-    def __init__(self, data = None, parent_window = None, log_pas = None):
+    def __init__(self, data = None, parent_window = None):
         super().__init__()
         self.data = data
-        
-        self.log_pas = log_pas
+        print(self.data)
         self.parent_window = parent_window
         
         if self.data is not None:
@@ -54,19 +53,24 @@ class ChatsWindow(tk.Tk):
         chat_id = self.combobox.get()
         second_user_login = ''
         
-        res = connect_to_chat(chat_id)
+        res = connect_to_chat(int(chat_id))
         
-        for item in res[chat_id]['users']:
-            for login in item:
-                if login == self.data['login']:
-                    
-                    continue
-                else:
-                    second_user_login = login
+        for login in res['users']:
+            if login == self.data['login']:
+                continue
+            else:
+                second_user_login = login
         
+        # for item in res[0]['users']:
+        #     for login in item:
+        #         if login == self.data['login']:
+        #             continue
+        #         else:
+        #             second_user_login = login
+        #             print(second_user_login)
         self.withdraw()
         
-        _ = ChatWindow(first_user_login = self.data['login'], second_user_login = second_user_login, chat_id = chat_id,
+        _ = ChatWindow(user = self.data, first_user_login = self.data['login'], second_user_login = second_user_login, chat_id = chat_id,
                        parent_window = self)
     
     def create_new_chat(self):
@@ -79,8 +83,9 @@ class ChatsWindow(tk.Tk):
         self.destroy()
     
     def refresh_combobox(self):
-        print(self.log_pas)
-        res = auth_rest(self.log_pas)
+        
+        res = auth_rest({'login': self.data['login'], 'password': self.data['password']})
+        
         print(res)
         self.chats_id = res['chats_id']
         self.combobox.configure(values = self.chats_id)
@@ -115,8 +120,8 @@ class CreateChat(tk.Tk):
     
     def open_created_chat(self):
         second_user_login = self.search_login_entry.get()
-        first_suer = {'login': self.data['login']}
-        second_user = {'login': second_user_login}
+        first_suer = {'user_login': self.data['login']}
+        second_user = {'user_login': second_user_login}
         self.parent_window.withdraw()
         
         res = create_chat([first_suer, second_user])
@@ -129,13 +134,16 @@ class CreateChat(tk.Tk):
         
         elif isinstance(res, int):
             self.destroy()
+            
+            user_data = auth_rest({'login': self.data['login'], 'password': self.data['password']})
+            
             showinfo(title = 'Чат', message = f'Чат уже создан id чата {res}')
-            _ = ChatWindow(first_user_login = self.data['login'], second_user_login = second_user_login,
+            _ = ChatWindow(user = user_data, first_user_login = self.data['login'], second_user_login = second_user_login,
                            chat_id = res, parent_window = self.parent_window)
         
         else:
             self.destroy()
-            _ = ChatWindow(first_user_login = self.data['login'], second_user_login = second_user_login,
+            _ = ChatWindow(user = self.data, first_user_login = self.data['login'], second_user_login = second_user_login,
                            chat_id = res['id'], parent_window = self.parent_window)
 
 # app = CreateChat()

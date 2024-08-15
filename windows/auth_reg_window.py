@@ -49,14 +49,16 @@ class AuthWindow(tk.Tk):
         password = self.entry_pass.get()
         data = {'login': login, 'password': password}
         res = auth_rest(data)
+        if res == 403:
+            showinfo(title = 'Авторизация', message = f'Неверный логин или пароль')
         
-        if res != 404:
+        elif res != 404:
             self.info_is_auth(data['login'])
-            _ = ChatsWindow(data = res, parent_window = self.parent_window, log_pas = data)
+            _ = ChatsWindow(data = res, parent_window = self.parent_window)
             self.destroy()
         
         else:
-            showinfo(title = 'Авторизация', message = f'Неверный логин или пароль')
+            showinfo(title = 'Авторизация', message = f'Пользователь не найден')
     
     def info_is_auth(self, data_login):
         showinfo(title = 'Авторизация', message = f'Добро пожаловать, {data_login}!')
@@ -93,7 +95,8 @@ class RegWindow(tk.Tk):
         data = {'login': login, 'password': password}
         
         res = reg_rest(data)
-        if res == 404:
+        
+        if res == 202:
             showinfo(title = 'Регистрация', message = f'Пользователь с логином {login} уже зарегестрирован!')
             
             _ = AuthWindow(parent_window = self.parent_window)
@@ -105,7 +108,10 @@ class RegWindow(tk.Tk):
         
         else:
             self.button_clicked(data['login'])
-            _ = ChatsWindow(data = res, parent_window = self.parent_window, log_pas = data)
+            data = {'login': login, 'password': password}
+            
+            res = auth_rest(data)
+            _ = ChatsWindow(data = res, parent_window = self.parent_window)
             self.destroy()
     
     def button_clicked(self, data_login):

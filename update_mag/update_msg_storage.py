@@ -4,22 +4,21 @@ from threading import Thread
 import requests
 
 
-def return_chat_msg_storage(chat_id: str) -> list:
-    response_get = requests.get(f'http://127.0.0.1:8000//chats/show_chat_msg_storage', params = {'chat_id': chat_id})
+def return_chat_msg_storage(chat_id: int) -> list:
+    response_get = requests.get(f'http://127.0.0.1:8000/chats/chat_msg_storage', params = {'chat_id': chat_id})
     
     data = response_get.json()
-    
     return data
 
 
 class IntervalCheckMsgThread(Thread):
     sleep: int | float
-    chat_id: str
+    chat_id: int
     len_msg_storage: int
     last_msg: dict = {}
     _is_run: bool = False
     
-    def __init__(self, sleep: int | float = 0, chat_id: str = '', update_msg = None):
+    def __init__(self, sleep: int | float = 0, chat_id: int = 0, update_msg = None):
         Thread.__init__(self)
         self.daemon = True
         self.sleep = sleep
