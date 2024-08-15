@@ -36,13 +36,15 @@ async def show_chat_msgs(chat_id: int):
         chats = result.scalar()
         
         # for chat in chats:
-        print('**' * 10)
-        print(f'Chat id {chats.chat_id}, users = {chats.users}')
-        print(f'Сообщение в чате {chats.chat_id}')
+        # print('**' * 10)
+        # print(f'Chat id {chats.chat_id}, users = {chats.users}')
+        # print(f'Сообщение в чате {chats.chat_id}')
         
+        msg_storage = []
         for msg in chats.messages:
-            print(f' Пользователь {msg.user_login} написал : {msg.text}')
-
+            msg_storage.append({msg.user_login: msg.text})
+            # print(f' Пользователь {msg.user_login} написал : {msg.text}')
+        return msg_storage
 
 # asyncio.run(create_message_db(user_id = 2, chat_id = 2, text = 'Good!'))
-asyncio.run(show_chat_msgs(chat_id = 1))
+# asyncio.run(show_chat_msgs(chat_id = 2))

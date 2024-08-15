@@ -91,3 +91,7 @@ async def show_all_users_from_db():
             users.append({user.login: user})
         
         return users
+
+
+async def search_user_by_id(user_id: int):
+    pass

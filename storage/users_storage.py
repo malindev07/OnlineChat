@@ -52,7 +52,7 @@ class UsersStorage:
         return res
     
     @staticmethod
-    async def user_authorization(user: UserPydantic):
+    async def user_authorization(user: UserPydantic) -> User | None | bool:
         user_auth = User(login = user.login, password = user.password)
         res = await authorization_db(user_auth)
         return res

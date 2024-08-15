@@ -9,9 +9,9 @@ from py_models.user_model import User
 class UserPydantic(BaseModel):
     id: SkipJsonSchema[int] = None
     login: str
-    password: str = Field(exclude = True)
+    password: str
     status: SkipJsonSchema[str] = None
-    chats_id: SkipJsonSchema[list[str]] = None
+    chats_id: SkipJsonSchema[list[int]] = None
     old_logins: SkipJsonSchema[list[str]] = None
     
     async def convert_to_return_model(self, user: User):

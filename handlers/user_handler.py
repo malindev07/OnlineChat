@@ -7,7 +7,7 @@ user_router = APIRouter(prefix = "/users", tags = ["Users"])
 
 
 @user_router.post('/user_registration')
-async def user_registration_handler(req: Request, response: Response, user: UserPydantic):
+async def user_registration_handler(req: Request, response: Response, user: UserPydantic) -> UserPydantic | int:
     if user.login == '':
         response.status_code = status.HTTP_400_BAD_REQUEST
         return response.status_code

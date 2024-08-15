@@ -1,4 +1,6 @@
 ## Првоеряем состоят ли пользователи уже в чате
+import asyncio
+import json
 
 from sqlalchemy import select, update
 
@@ -114,3 +116,18 @@ async def check_last_index_chat_db():
             return 1
         
         return chats_ids_res[-1] + 1
+
+
+async def return_chat_by_id_db(chat_id: int):
+    async with db_helper.session_factory() as session:
+        stmt = (
+            select(Chat_DB).where(Chat_DB.chat_id == chat_id)
+        )
+        
+        res = await session.execute(stmt)
+        chat = res.scalar()
+        
+        print(chat)
+        return chat
+
+# asyncio.run(return_chat_by_id(chat_id = 2))

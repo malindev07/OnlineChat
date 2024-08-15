@@ -45,5 +45,5 @@ class MessageStorage:
     
     @staticmethod
     async def show_chats_messages(chat_id: int):
-        res = show_chat_msgs(chat_id = chat_id)
+        res = await show_chat_msgs(chat_id = chat_id)
         return res

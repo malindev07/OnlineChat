@@ -1,7 +1,8 @@
 from dataclasses import dataclass, field
 
+from db_actions.actions_message_db import show_chat_msgs
 from db_actions.actions_user_db import search_user_db
-from db_actions.actions_chat_db import create_chat_db, check_last_index_chat_db
+from db_actions.actions_chat_db import create_chat_db, check_last_index_chat_db, return_chat_by_id_db
 from py_models.chat_model import ChatID, Chat
 
 from pydantic_models.pydantic_user_model import UserSearchPydanticDb
@@ -95,6 +96,15 @@ class ChatsStorage:
         print(res)
         return res
     
+    @staticmethod
+    async def show_chat_msg_storage(chat_id: int):
+        res = await show_chat_msgs(chat_id)
+        return res
+    
+    @staticmethod
+    async def return_chat_by_id(chat_id: int):
+        res = await return_chat_by_id_db(chat_id)
+        return res
     # async def create_chat(self, users: [UserSearchPydantic], users_storage: UsersStorage) -> Chat | None | int:
     #
     #     res = await check_users_in_storage(users, users_storage)
@@ -126,7 +136,7 @@ class ChatsStorage:
     #     else:
     #         return None
     
-    def show_chat_msg(self, search_chat_id: int) -> list:
-        for chat in self.chats:
-            if search_chat_id in chat:
-                return chat[search_chat_id].messages
+    # def show_chat_msg(self, search_chat_id: int) -> list:
+    #     for chat in self.chats:
+    #         if search_chat_id in chat:
+    #             return chat[search_chat_id].messages

@@ -33,3 +33,15 @@ async def check_users_in_chat(req: Request, response: Response, users: list[User
     else:
         response.status_code = status.HTTP_200_OK
         return response.status_code
+
+
+@chat_router.get('/chat_msg_storage')
+async def show_chat_msg_storage(req: Request, chat_id: int):
+    res = await req.state.storage.chats_storage.show_chat_msg_storage(chat_id = chat_id)
+    return res
+
+
+@chat_router.get('/return_chat')
+async def return_chat_by_id(req: Request, chat_id: int):
+    res = await req.state.storage.chats_storage.return_chat_by_id(chat_id = chat_id)
+    return res
