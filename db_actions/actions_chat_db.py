@@ -1,7 +1,3 @@
-## Првоеряем состоят ли пользователи уже в чате
-import asyncio
-import json
-
 from sqlalchemy import select, update
 
 from db_config.db_helper import db_helper
@@ -72,10 +68,10 @@ async def create_chat_db(chat: Chat):
             return chat
     
     elif not res:
-        print('НЕльзяав создать с самим собой')
+        # print('НЕльзяав создать с самим собой')
         return False
     else:
-        print('Chat is already created')
+        # print('Chat is already created')
         return res
 
 

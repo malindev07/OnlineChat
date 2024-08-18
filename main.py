@@ -33,3 +33,9 @@ app.include_router(message_router)
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
     uvicorn.run("main:app")
+
+# mypy попрпаить
+
+# tests
+
+# logger разобраться

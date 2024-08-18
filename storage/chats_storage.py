@@ -27,35 +27,34 @@ from py_models.user_model import User
 #     return [False, checked_users]
 
 
-async def check_chat_in_user(users: list[User]) -> int | bool | None:
-    check_list = []
-    tuples = set()
-    for user in users:
-        
-        for k in user:
-            tuples.add(k)
-            
-            if user[k].chats_id is not None:
-                for i in user[k].chats_id:
-                    check_list.append(i)
-            else:
-                user[k].chats_id = []
-    print(len(tuples))
-    print(len(tuples) == 1)
-    if len(tuples) == 1:
-        return None
-    else:
-        count = 0
-        for i in check_list:
-            for k in check_list:
-                if i == k:
-                    count += 1
-            if count == len(users):
-                return i
-            else:
-                count = 0
-        if count == 0:
-            return False
+# async def check_chat_in_user(users: list[User]) -> int | bool | None:
+#     check_list = []
+#     tuples = set()
+#     for user in users:
+#
+#         for k in user:
+#             tuples.add(k)
+#
+#             if user[k].chats_id is not None:
+#                 for i in user[k].chats_id:
+#                     check_list.append(i)
+#             else:
+#                 user[k].chats_id = []
+#
+#     if len(tuples) == 1:
+#         return None
+#     else:
+#         count = 0
+#         for i in check_list:
+#             for k in check_list:
+#                 if i == k:
+#                     count += 1
+#             if count == len(users):
+#                 return i
+#             else:
+#                 count = 0
+#         if count == 0:
+#             return False
 
 
 @dataclass

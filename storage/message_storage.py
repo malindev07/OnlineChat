@@ -14,7 +14,6 @@ async def add_message_to_chat(chat_storage: ChatsStorage, message: Message):
                 add_msg = MessageForChatStorage(text = message.text.text, user_login = message.user_login.login,
                                                 date = message.date)
                 item[k].messages.append(add_msg)
-                print(item[k].messages)
 
 
 @dataclass
