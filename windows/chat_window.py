@@ -64,7 +64,7 @@ class ChatWindow(tk.Tk):
     def show_messages(self):
         res = return_chat_msg_storage(chat_id = self.chat_id)
         i = 0
-        print(res)
+        # print(res)
         for msg in res:
             for k in msg:
                 self.message_in_chat_text.configure(state = NORMAL)
@@ -84,3 +84,4 @@ class ChatWindow(tk.Tk):
         self.destroy()
         self.parent_window.deiconify()
         self.parent_window.refresh_combobox()
+        self.thread_manger.set_stop()
