@@ -1,0 +1,121 @@
+2024-08-22 21:02:34,673 - src.logger - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:03,875 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:08,653 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:13,276 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:53,144 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:56,377 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:56,791 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:57,120 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:57,436 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:05:57,727 - root - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:09:07,054 - src.logger - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:09:32,374 - src.logger - ERROR |  Нельзя создать чат с самим собой, 1!  |  actions_chat_db.py - def: check_chat_in_users_db - line: 13
+2024-08-22 21:14:48,808 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:14:48,810 - asyncio - DEBUG |  Using proactor: IocpProactor  |  proactor_events.py - def: __init__ - line: 634
+2024-08-22 21:14:49,581 - src.logger - INFO |  New chat has got id 3  |  actions_chat_db.py - def: check_last_index_chat_db - line: 120
+2024-08-22 21:14:49,583 - src.logger - INFO |  Chat id is 2  |  actions_chat_db.py - def: check_chat_in_users_db - line: 31
+2024-08-22 21:14:49,583 - src.logger - INFO |  Chat is already created  |  actions_chat_db.py - def: create_chat_db - line: 79
+2024-08-22 21:14:55,943 - src.logger - INFO |  New chat has got id 3  |  actions_chat_db.py - def: check_last_index_chat_db - line: 120
+2024-08-22 21:14:55,945 - src.logger - INFO |  Chat id is 2  |  actions_chat_db.py - def: check_chat_in_users_db - line: 31
+2024-08-22 21:14:55,945 - src.logger - INFO |  Chat is already created  |  actions_chat_db.py - def: create_chat_db - line: 79
+2024-08-22 21:15:21,163 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:19:29,021 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:19:31,744 - src.logger - INFO |  Chat id is 2  |  actions_chat_db.py - def: check_chat_in_users_db - line: 31
+2024-08-22 21:19:31,745 - src.logger - INFO |  Chat is already created  |  actions_chat_db.py - def: create_chat_db - line: 79
+2024-08-22 21:19:58,215 - src.logger - INFO |  Chat id is 2  |  actions_chat_db.py - def: check_chat_in_users_db - line: 31
+2024-08-22 21:19:58,216 - src.logger - INFO |  Chat is already created  |  actions_chat_db.py - def: create_chat_db - line: 79
+2024-08-22 21:20:50,816 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:20:52,562 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:20:54,871 - src.logger - INFO |  User in DB  |  actions_user_db.py - def: insert_user - line: 25
+2024-08-22 21:22:13,517 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:22:15,074 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:22:16,841 - src.logger - INFO |  User 1 in DB already  |  actions_user_db.py - def: search_user_db - line: 38
+2024-08-22 21:22:16,841 - src.logger - ERROR |  User in DB  |  actions_user_db.py - def: insert_user - line: 25
+2024-08-22 21:23:23,271 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:23:25,038 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:23:36,071 - src.logger - INFO |  User 1 in DB already  |  actions_user_db.py - def: search_user_db - line: 38
+2024-08-22 21:23:45,264 - src.logger - INFO |  User 1 in DB already  |  actions_user_db.py - def: search_user_db - line: 38
+2024-08-22 21:23:45,266 - src.logger - ERROR |  Incorrect password for 1  |  actions_user_db.py - def: authorization_db - line: 67
+2024-08-22 21:23:50,045 - src.logger - ERROR |  User with login 11 is not defined  |  actions_user_db.py - def: authorization_db - line: 71
+2024-08-22 21:24:04,744 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:24:06,517 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:24:07,742 - src.logger - ERROR |  User with login 11 is not defined  |  actions_user_db.py - def: authorization_db - line: 71
+2024-08-22 21:24:11,405 - src.logger - ERROR |  Incorrect password for 1  |  actions_user_db.py - def: authorization_db - line: 67
+2024-08-22 21:24:36,890 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:24:38,866 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:24:39,970 - src.logger - INFO |  Successful auth  |  actions_user_db.py - def: authorization_db - line: 64
+2024-08-22 21:26:31,040 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:26:33,060 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:26:43,244 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:27:54,770 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:29:04,836 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:29:06,625 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:29:07,974 - src.logger - ERROR |  User with login 1232 is not defined  |  chats_storage.py - def: create_chat - line: 83
+2024-08-22 21:29:13,978 - src.logger - ERROR |  User with login 123 is not defined  |  chats_storage.py - def: create_chat - line: 83
+2024-08-22 21:29:18,477 - src.logger - ERROR |  User with login 123 is not defined  |  actions_user_db.py - def: authorization_db - line: 72
+2024-08-22 21:29:26,178 - src.logger - INFO |  User 123 regostered now!  |  actions_user_db.py - def: insert_user - line: 21
+2024-08-22 21:29:33,482 - src.logger - INFO |  Successful auth  |  actions_user_db.py - def: authorization_db - line: 64
+2024-08-22 21:29:36,969 - src.logger - INFO |  Chat id is None  |  actions_chat_db.py - def: check_chat_in_users_db - line: 31
+2024-08-22 21:29:37,044 - src.logger - INFO |  Chat is created  |  actions_chat_db.py - def: create_chat_db - line: 64
+2024-08-22 21:31:37,097 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:31:39,029 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:31:41,786 - src.db_actions.actions_chat_db - INFO |  Chat id is 3  |  actions_chat_db.py - def: check_chat_in_users_db - line: 35
+2024-08-22 21:31:41,787 - src.db_actions.actions_chat_db - INFO |  Chat is already created  |  actions_chat_db.py - def: create_chat_db - line: 77
+2024-08-22 21:31:45,444 - src.db_actions.actions_chat_db - INFO |  Chat id is 3  |  actions_chat_db.py - def: check_chat_in_users_db - line: 35
+2024-08-22 21:31:45,445 - src.db_actions.actions_chat_db - INFO |  Chat is already created  |  actions_chat_db.py - def: create_chat_db - line: 77
+2024-08-22 21:31:55,896 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+2024-08-22 21:33:53,103 - src.logger - INFO |  server started  |  main.py - def: <module> - line: 37
+2024-08-22 21:33:54,807 - src.db_actions.actions_user_db - ERROR |  User in DB  |  actions_user_db.py - def: insert_user - line: 29
+2024-08-22 21:34:03,546 - src.db_actions.actions_user_db - ERROR |  User with login 123111 is not defined  |  actions_user_db.py - def: authorization_db - line: 76
+2024-08-22 21:34:09,152 - src.db_actions.actions_user_db - ERROR |  Incorrect password for 123  |  actions_user_db.py - def: authorization_db - line: 72
+2024-08-22 21:34:17,472 - src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40
+ src.logger - INFO |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 21:35:02,266 
+ src.db_actions.actions_user_db - ERROR |  Incorrect password for 123  |  actions_user_db.py - def: authorization_db - line: 72 - 2024-08-22 21:35:03,095 
+ src.logger - INFO |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 21:35:31,287 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 21:35:32,817 
+ ERROR - src.db_actions.actions_user_db |  Incorrect password for 123  |  actions_user_db.py - def: authorization_db - line: 72 - 2024-08-22 21:35:33,589 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 21:35:47,624 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 21:35:49,313 
+ ERROR - src.db_actions.actions_user_db |  Incorrect password for 123  |  actions_user_db.py - def: authorization_db - line: 72 - 2024-08-22 21:35:50,044 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 21:36:13,369 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 23:08:21,557 
+ INFO - src.db_actions.actions_user_db |  User 123 regostered now!  |  actions_user_db.py - def: insert_user - line: 25 - 2024-08-22 23:08:29,475 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 23:09:08,400 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 23:09:11,359 
+ ERROR - src.db_actions.actions_user_db |  User in DB  |  actions_user_db.py - def: insert_user - line: 29 - 2024-08-22 23:09:13,423 
+ INFO - src.db_actions.actions_user_db |  User 123123 regostered now!  |  actions_user_db.py - def: insert_user - line: 25 - 2024-08-22 23:09:16,670 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 23:09:33,779 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 23:10:21,661 
+ ERROR - src.db_actions.actions_user_db |  User in DB  |  actions_user_db.py - def: insert_user - line: 29 - 2024-08-22 23:10:23,422 
+ INFO - src.db_actions.actions_user_db |  User 1 regostered now!  |  actions_user_db.py - def: insert_user - line: 25 - 2024-08-22 23:10:25,496 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 23:10:56,659 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 23:10:58,510 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 23:15:04,967 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-22 23:16:25,434 
+ INFO - src.db_actions.actions_user_db |  User 1 regostered now!  |  actions_user_db.py - def: insert_user - line: 25 - 2024-08-22 23:16:28,232 
+ INFO - src.db_actions.actions_user_db |  User 123 regostered now!  |  actions_user_db.py - def: insert_user - line: 25 - 2024-08-22 23:16:31,277 
+ INFO - src.db_actions.actions_chat_db |  It is theFirst Chat!  |  actions_chat_db.py - def: check_last_index_chat_db - line: 115 - 2024-08-22 23:16:41,274 
+ INFO - src.db_actions.actions_chat_db |  Chat id is None  |  actions_chat_db.py - def: check_chat_in_users_db - line: 35 - 2024-08-22 23:16:41,276 
+ INFO - src.db_actions.actions_chat_db |  Chat is created  |  actions_chat_db.py - def: create_chat_db - line: 68 - 2024-08-22 23:16:41,349 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-22 23:20:58,301 
+ INFO - src.logger |  server started  |  main.py - def: <module> - line: 37 - 2024-08-25 14:54:22,924 
+ INFO - src.db_actions.actions_user_db |  Successful auth  |  actions_user_db.py - def: authorization_db - line: 68 - 2024-08-25 14:54:25,552 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:54:33,033 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:00,673 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:02,838 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:04,091 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:05,060 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:06,077 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:07,242 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:07,646 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:07,814 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:07,965 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:08,117 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:08,252 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:08,397 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:08,532 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:08,681 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:10,222 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:11,849 
+ INFO - src.db_actions.actions_message_db |  Message for chat id 1 sent  |  actions_message_db.py - def: create_message_db - line: 29 - 2024-08-25 14:55:13,183 
+ INFO - src.logger |  server closed  |  main.py - def: <module> - line: 40 - 2024-08-25 20:46:39,954 

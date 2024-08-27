@@ -19,5 +19,8 @@ class Message(Base):
     text: Mapped[str]
     date: Mapped[datetime.datetime]
     
+    ## test migrate
+    # test_migration: Mapped[Optional[str]]
+    
     def as_dict(self):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}

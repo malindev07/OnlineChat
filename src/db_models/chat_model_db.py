@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Column, ARRAY, String
 from sqlalchemy.orm import Mapped, relationship
@@ -15,3 +15,6 @@ class Chat(Base):
     chat_id: Mapped[int] = mapped_column(primary_key = True)
     users = Column(ARRAY(String))
     messages: Mapped[list["Message"]] = relationship(back_populates = "chat")
+    
+    ## test migrations
+    # test1: Mapped[Optional[str]]

@@ -18,3 +18,6 @@ class User(Base):
     status: Mapped[Optional[str]]
     chats_id = Column(ARRAY(Integer))
     old_logins = Column(ARRAY(String))
+    
+    ## test migrations
+    # test: Mapped[Optional[int]]
